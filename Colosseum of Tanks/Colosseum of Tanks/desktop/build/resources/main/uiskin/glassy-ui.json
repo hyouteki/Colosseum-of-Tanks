@@ -1,0 +1,213 @@
+{
+  BitmapFont: {
+    font: {
+      file: ../fonts/font-export.fnt
+    }
+    font-big: {
+      file: ../fonts/font-big-export.fnt
+    }
+  }
+  Color: {
+    black: {
+      r: 0
+      g: 0
+      b: 0
+      a: 1
+    }
+    cyan: {
+      r: 0
+      g: 1
+      b: 0.99166656
+      a: 1
+    }
+    dark-cyan: {
+      r: 0
+      g: 0.39373153
+      b: 0.4333333
+      a: 1
+    }
+    white: {
+      r: 1
+      g: 1
+      b: 1
+      a: 1
+    }
+  }
+  TintedDrawable: {
+    pale-blue: {
+      name: white
+      color: {
+        r: 0.48342222
+        g: 0.76367503
+        b: 0.99333334
+        a: 1
+      }
+    }
+    black: {
+      name: white
+      color: {
+        r: 0
+        g: 0
+        b: 0
+        a: 1
+      }
+    }
+  }
+  ButtonStyle: {
+    default: {
+      up: button
+      down: button-down
+    }
+    small: {
+      up: button-small
+      down: button-small-down
+    }
+  }
+  CheckBoxStyle: {
+    default: {
+      checkboxOn: checkbox
+      checkboxOff: checkbox-off
+      font: font
+      fontColor: white
+    }
+    radio: {
+      checkboxOn: radio-button
+      checkboxOff: radio-button-off
+      font: font
+      fontColor: white
+    }
+  }
+  ImageButtonStyle: {
+    default: {
+      up: button
+      down: button-down
+    }
+  }
+  ImageTextButtonStyle: {
+    default: {
+      font: font-big
+      up: button
+      down: button-down
+    }
+  }
+  LabelStyle: {
+    default: {
+      font: font
+    }
+    big: {
+      font: font-big
+    }
+    black: {
+      font: font
+      fontColor: black
+    }
+  }
+  ListStyle: {
+    default: {
+      font: font
+      fontColorSelected: white
+      fontColorUnselected: dark-cyan
+      selection: pale-blue
+      background: list
+    }
+    plain: {
+      font: font
+      fontColorSelected: white
+      fontColorUnselected: dark-cyan
+      selection: pale-blue
+    }
+  }
+  ProgressBarStyle: {
+    default-horizontal: {
+      background: progress-bar
+      knobBefore: progress-bar-knob
+    }
+    default-vertical: {
+      background: progress-bar-vertical
+      knobBefore: progress-bar-knob-vertical
+    }
+  }
+  ScrollPaneStyle: {
+    default: {
+      hScroll: horizontal-scroll-bar
+      hScrollKnob: horizontal-scroll-knob
+      vScroll: vertical-scroll-bar
+      vScrollKnob: vertical-scroll-knob
+    }
+    scroll: {
+      background: list
+      hScroll: horizontal-scroll-bar
+      hScrollKnob: horizontal-scroll-knob
+      vScroll: vertical-scroll-bar
+      vScrollKnob: vertical-scroll-knob
+    }
+  }
+  SelectBoxStyle: {
+    default: {
+      font: font
+      fontColor: dark-cyan
+      background: select-box
+      scrollStyle: scroll
+      listStyle: plain
+    }
+  }
+  SliderStyle: {
+    default-horizontal: {
+      background: slider
+      knob: slider-knob
+    }
+    default-vertical: {
+      background: slider-vertical
+      knob: slider-knob
+    }
+  }
+  SplitPaneStyle: {
+    default-horizontal: {
+      handle: horizontal-split-pane
+    }
+    default-vertical: {
+      handle: vertical-split-pane
+    }
+  }
+  TextButtonStyle: {
+    default: {
+      font: font-big
+      up: button
+      down: button-down
+    }
+    small: {
+      font: font
+      up: button-small
+      down: button-small-down
+    }
+  }
+  TextFieldStyle: {
+    default: {
+      font: font
+      fontColor: black
+      background: textfield
+      cursor: black
+      selection: pale-blue
+    }
+  }
+  TextTooltipStyle: {
+    default: {
+      label: black
+      background: list
+    }
+  }
+  TreeStyle: {
+    default: {
+      plus: plus
+      minus: minus
+      selection: pale-blue
+    }
+  }
+  WindowStyle: {
+    default: {
+      background: window
+      titleFont: font
+      titleFontColor: black
+    }
+  }
+}
