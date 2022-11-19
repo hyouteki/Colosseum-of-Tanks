@@ -2,7 +2,7 @@ package com.mygdx.colosseum_of_tanks;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.mygdx.colosseum_of_tanks.TheGame;
+import com.mygdx.colosseum_of_tanks.screens.StartScreen;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
