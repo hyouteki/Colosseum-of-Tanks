@@ -14,16 +14,20 @@ public class Tank {
     protected int angle;
     protected Missile current_missile = null;
 
-    public Tank(int position_x, int position_y) {
+    public Tank() {
         this.health = 100;
-        this.position_x = position_x;
-        this.position_y = position_y;
         this.missiles = new ArrayList<>();
         this.available_missiles = new ArrayList<>();
         this.missile_count = 6;
         this.fuel = 100;
         this.power = 100;
         this.angle = 45;
+    }
+
+    public Tank(int position_x, int position_y) {
+        this();
+        this.position_x = position_x;
+        this.position_y = position_y;
     }
 
     public void set_available_missiles(ArrayList<Missile> missiles) {

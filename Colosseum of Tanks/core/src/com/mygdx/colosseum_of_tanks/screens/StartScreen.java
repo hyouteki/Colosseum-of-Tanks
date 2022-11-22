@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -37,6 +38,8 @@ public class StartScreen implements Screen {
     private TextButton newButton;
     private TextButton continueButton;
     private TextButton quitButton;
+    private Button musicButton;
+    private Button soundButton;
 
     public StartScreen(TheGame game, int lastState) {
         this.game = game;
@@ -51,13 +54,15 @@ public class StartScreen implements Screen {
         this.table = new Table();
         this.batch = new SpriteBatch();
 
-        this.background1 = new Texture(Gdx.files.internal("images/tank_stars/tank_stars_blue_bg.png"));
-        this.background2 = new Texture(Gdx.files.internal("images/tank_stars/tank_stars_blue_bg.png"));
+        this.background1 = new Texture(Gdx.files.internal("images/tank-stars/tank_stars_blue_bg.png"));
+        this.background2 = new Texture(Gdx.files.internal("images/tank-stars/tank_stars_blue_bg.png"));
 
         Label title = new Label("Colosseum of Tanks", skin);
         this.newButton = new TextButton("New Game", skin);
         this.continueButton = new TextButton("Continue", skin);
         this.quitButton = new TextButton("Quit Game", skin);
+        this.musicButton = new Button(skin, "music");
+        this.soundButton = new Button(skin, "sound");
 
         if (this.lastState == TheGame.SAVE_GAME) {
             final Dialog dialog = new Dialog("Game saved", skin, "dialog");
@@ -86,6 +91,9 @@ public class StartScreen implements Screen {
         table.add(continueButton).padTop(10);
         table.row();
         table.add(quitButton).padTop(10);
+        table.row();
+        table.add(musicButton).padTop(10);
+//        table.add(soundButton).padTop(10);
 
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
@@ -113,7 +121,7 @@ public class StartScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new ChooseScreen(game));
             }
         });
 
@@ -136,7 +144,6 @@ public class StartScreen implements Screen {
     public void show() {
 
     }
-
 
     @Override
     public void resize(int width, int height) {

@@ -1,6 +1,5 @@
 package com.mygdx.colosseum_of_tanks.screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -9,11 +8,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.colosseum_of_tanks.TheGame;
+import com.mygdx.colosseum_of_tanks.classes.*;
 
-public class GameScreen implements Screen {
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class PlayScreen implements Screen {
     private final TheGame game;
 
     private final float WORLD_WIDTH;
@@ -23,20 +26,34 @@ public class GameScreen implements Screen {
     private final Viewport port;
 
     private final TiledMap map;
+    private ArrayList<String> mapNameList = new ArrayList<String>();
     private final OrthogonalTiledMapRenderer renderer;
 
-    public GameScreen(TheGame game) {
+    private Tank tankL;
+    private Tank tankR;
+
+    public PlayScreen(TheGame game) {
         this.game = game;
 
         this.WORLD_WIDTH = Gdx.graphics.getWidth();
         this.WORLD_HEIGHT = Gdx.graphics.getHeight();
 
-        this.cam = new OrthographicCamera();
-        this.port = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, cam);
+        mapNameList.add("maps/night-fall.tmx");
+        mapNameList.add("maps/sole-valley.tmx");
+        Collections.shuffle(mapNameList);
+        this.map = new TmxMapLoader().load(mapNameList.get(0));
+        this.renderer = new OrthogonalTiledMapRenderer(map);
 
-        this.map = new TmxMapLoader().load("maps/grassy_highland.tmx");
-        this.renderer = new OrthogonalTiledMapRenderer(map, 2);
+        this.cam = new OrthographicCamera();
+        this.port = new StretchViewport(WORLD_WIDTH, 42*16, cam);
+
         this.cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
+    }
+
+    public PlayScreen(TheGame game, Tank tankL, Tank tankR) {
+        this(game);
+        this.tankL = tankL;
+        this.tankR = tankR;
     }
 
     @Override
@@ -55,7 +72,7 @@ public class GameScreen implements Screen {
             game.setScreen(new PauseScreen(this));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if (this.cam.position.x < 1200) {
+            if (this.cam.position.x < 870) {
                 this.cam.position.x += 400 * delta;
             }
         }

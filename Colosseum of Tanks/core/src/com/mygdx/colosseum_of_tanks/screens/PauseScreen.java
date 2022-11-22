@@ -15,7 +15,7 @@ import com.mygdx.colosseum_of_tanks.TheGame;
 
 public class PauseScreen implements Screen {
     private final TheGame game;
-    private GameScreen gameScreen;
+    private PlayScreen gameScreen;
 
     private float WORLD_WIDTH;
     private float WORLD_HEIGHT;
@@ -46,8 +46,8 @@ public class PauseScreen implements Screen {
         this.table = new Table();
         this.batch = new SpriteBatch();
 
-        this.background1 = new Texture(Gdx.files.internal("images/tank_stars/tank_stars_green_bg.png"));
-        this.background2 = new Texture(Gdx.files.internal("images/tank_stars/tank_stars_green_bg.png"));
+        this.background1 = new Texture(Gdx.files.internal("images/tank-stars/tank_stars_green_bg.png"));
+        this.background2 = new Texture(Gdx.files.internal("images/tank-stars/tank_stars_green_bg.png"));
 
         this.resumeButton = new TextButton("Resume game", skin);
         this.restartButton = new TextButton("Restart game", skin);
@@ -69,7 +69,7 @@ public class PauseScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
     }
 
-    public PauseScreen(GameScreen gameScreen) {
+    public PauseScreen(PlayScreen gameScreen) {
         this(gameScreen.getGame());
         this.gameScreen = gameScreen;
     }
@@ -104,7 +104,7 @@ public class PauseScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new ChooseScreen(game));
             }
         });
 
