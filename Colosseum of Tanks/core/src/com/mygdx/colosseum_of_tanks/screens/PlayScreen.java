@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -29,8 +31,12 @@ public class PlayScreen implements Screen {
     private ArrayList<String> mapNameList = new ArrayList<String>();
     private final OrthogonalTiledMapRenderer renderer;
 
+    private SpriteBatch batch;
+
     private Tank tankL;
     private Tank tankR;
+    private Sprite spriteL;
+    private Sprite spriteR;
 
     public PlayScreen(TheGame game) {
         this.game = game;
@@ -45,7 +51,8 @@ public class PlayScreen implements Screen {
         this.renderer = new OrthogonalTiledMapRenderer(map);
 
         this.cam = new OrthographicCamera();
-        this.port = new StretchViewport(WORLD_WIDTH, 42*16, cam);
+        this.port = new StretchViewport(WORLD_WIDTH, 42 * 16, cam);
+        this.batch = new SpriteBatch();
 
         this.cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
     }
@@ -54,6 +61,12 @@ public class PlayScreen implements Screen {
         this(game);
         this.tankL = tankL;
         this.tankR = tankR;
+        this.tankL.setSprite(20, 20, 50, 50);
+        this.tankR.setSprite(40, 40, 50, 50);
+        this.spriteL = this.tankL.getSprite();
+        this.spriteR = this.tankR.getSprite();
+        this.spriteL.setPosition(10, 10);
+        this.spriteL.setRotation(45);
     }
 
     @Override
@@ -66,8 +79,15 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         cam.update();
+
         renderer.setView(cam);
         renderer.render();
+
+        batch.begin();
+//        spriteL.draw(batch);
+        batch.draw(tankL.getTexture(), 80, 125, 80, 80);
+        batch.end();
+
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             game.setScreen(new PauseScreen(this));
         }

@@ -1,8 +1,13 @@
 package com.mygdx.colosseum_of_tanks.classes;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import java.util.ArrayList;
 
 public class Tank {
+    protected Sprite sprite;
+    protected Texture tankImage;
     protected int health;
     protected int position_x;
     protected int position_y;
@@ -28,6 +33,22 @@ public class Tank {
         this();
         this.position_x = position_x;
         this.position_y = position_y;
+    }
+
+    public void setSprite(int srcX, int srcY, int srcWidth, int srcHeight) {
+        this.sprite = new Sprite(tankImage, srcX, srcY, srcWidth, srcHeight);
+    }
+
+    public Sprite getSprite() {
+        return this.sprite;
+    }
+
+    public void setTexture(Texture texture) {
+        this.tankImage = texture;
+    }
+
+    public Texture getTexture() {
+        return this.tankImage;
     }
 
     public void set_available_missiles(ArrayList<Missile> missiles) {

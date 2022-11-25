@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.colosseum_of_tanks.TheGame;
+
+import java.io.FileNotFoundException;
 
 public class PauseScreen implements Screen {
     private final TheGame game;
@@ -34,6 +37,8 @@ public class PauseScreen implements Screen {
     private TextButton restartButton;
     private TextButton saveButton;
     private TextButton exitButton;
+    private Button musicButton;
+    private Button soundButton;
 
     public PauseScreen(TheGame game) {
         this.game = game;
@@ -53,17 +58,25 @@ public class PauseScreen implements Screen {
         this.restartButton = new TextButton("Restart game", skin);
         this.saveButton = new TextButton("Save game state", skin);
         this.exitButton = new TextButton("Exit to main menu", skin);
+        this.musicButton = new Button(skin, "music");
+        this.soundButton = new Button(skin, "sound");
+
+        Table soundTable = new Table();
+        soundTable.add(musicButton);
+        soundTable.add(soundButton).padLeft(10);
 
         table.setPosition(0, 0);
         table.setFillParent(true);
         table.center();
-        table.add(resumeButton);
+        table.add(resumeButton).width(300);
         table.row();
-        table.add(restartButton).padTop(10);
+        table.add(restartButton).width(300).padTop(10);
         table.row();
-        table.add(saveButton).padTop(10);
+        table.add(saveButton).width(300).padTop(10);
         table.row();
-        table.add(exitButton).padTop(10);
+        table.add(exitButton).width(300).padTop(10);
+        table.row();
+        table.add(soundTable).padTop(10);
 
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);

@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.colosseum_of_tanks.TheGame;
 import com.mygdx.colosseum_of_tanks.classes.*;
 
+import java.io.FileNotFoundException;
+
 public class ChooseScreen implements Screen {
     private final TheGame game;
 

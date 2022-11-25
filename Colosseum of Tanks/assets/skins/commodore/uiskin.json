@@ -47,6 +47,7 @@
       disabledFontColor: { a: 1, b: 0.8, g: 0.8, r: 0.8 },
       up: button,
       down: button-down
+      over: button-down
     },
     toggle: {
       font: commodore-64,
@@ -56,6 +57,7 @@
       up: button,
       down: button-down,
       checked: button-down
+      over: button-down
     }
   },
   ImageButtonStyle: {
@@ -92,11 +94,13 @@
       up: music-off,
       down: music,
       checked: music
+      over: music
     },
     sound: {
       up: sound-off,
       down: sound,
       checked: sound
+      over: sound
     },
     toggle: {
       up: button,
