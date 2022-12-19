@@ -1,4 +1,4 @@
-package com.mygdx.colosseum_of_tanks.classes;
+package com.mygdx.colosseum_of_tanks.sprites;
 
 import java.util.ArrayList;
 

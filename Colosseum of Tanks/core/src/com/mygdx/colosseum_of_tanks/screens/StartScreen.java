@@ -116,7 +116,7 @@ public class StartScreen implements Screen {
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
 
-        this.musicState = prefs.getInteger("music", 1);
+        this.musicState = prefs.getInteger("music", 0);
         if (this.musicState == 1) {
             this.music.play();
             this.music.setVolume(0.2f);

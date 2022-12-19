@@ -58,6 +58,16 @@
       down: button-down,
       checked: button-down
       over: button-down
+    },
+    label: {
+      font: commodore-64,
+      fontColor: { a: 1, b: 1, g: 0.64705884, r: 0.64705884 },
+      downFontColor: { a: 1, b: 0.90588236, g: 0.25882354, r: 0.25882354 },
+      checkedFontColor: { a: 1, b: 0.90588236, g: 0.25882354, r: 0.25882354 },
+      up: button,
+      down: button,
+      checked: button,
+      over: button
     }
   },
   ImageButtonStyle: {
