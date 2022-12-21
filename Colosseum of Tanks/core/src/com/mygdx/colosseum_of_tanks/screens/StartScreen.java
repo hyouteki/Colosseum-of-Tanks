@@ -155,7 +155,8 @@ public class StartScreen implements Screen {
         continueButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //TO-DO
+                dispose();
+                game.setScreen(new ChooseGameScreen(game));
             }
         });
 

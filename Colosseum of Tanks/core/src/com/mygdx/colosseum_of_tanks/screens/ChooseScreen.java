@@ -14,7 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.colosseum_of_tanks.TheGame;
-import com.mygdx.colosseum_of_tanks.sprites.*;
+import com.mygdx.colosseum_of_tanks.sprites.Tank;
+import com.mygdx.colosseum_of_tanks.tools.TankFactory;
 
 
 public class ChooseScreen implements Screen {
@@ -48,6 +49,7 @@ public class ChooseScreen implements Screen {
 
     private Tank tankL = null;
     private Tank tankR = null;
+    private TankFactory tankFactory;
 
     public ChooseScreen(TheGame game) {
         this.game = game;
@@ -59,6 +61,8 @@ public class ChooseScreen implements Screen {
         this.skin = new Skin(Gdx.files.internal("skins/commodore/uiskin.json"));
         Table table = new Table();
         this.batch = new SpriteBatch();
+
+        this.tankFactory = new TankFactory();
 
         this.background1 = new Texture(Gdx.files.internal("images/tank-stars/tank_stars_red_bg.jpeg"));
         this.background2 = new Texture(Gdx.files.internal("images/tank-stars/tank_stars_red_bg.jpeg"));
@@ -152,7 +156,7 @@ public class ChooseScreen implements Screen {
         chooseL1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tankL = new AtomicTank(Tank.DEFAULT_TANK1_START_POSITION_X, Tank.DEFAULT_TANK1_START_POSITION_Y, true);
+                tankL = tankFactory.getTankInstance(TankFactory.ATOMIC_TANK);
                 if (chooseL2.isChecked()) {
                     chooseL2.toggle();
                 }
@@ -165,7 +169,7 @@ public class ChooseScreen implements Screen {
         chooseL2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tankL = new HeliosTank(Tank.DEFAULT_TANK1_START_POSITION_X, Tank.DEFAULT_TANK1_START_POSITION_Y, true);
+                tankL = tankFactory.getTankInstance(TankFactory.HELIOS_TANK);
                 if (chooseL1.isChecked()) {
                     chooseL1.toggle();
                 }
@@ -178,7 +182,7 @@ public class ChooseScreen implements Screen {
         chooseL3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tankL = new Mark1Tank(Tank.DEFAULT_TANK1_START_POSITION_X, Tank.DEFAULT_TANK1_START_POSITION_Y, true);
+                tankL = tankFactory.getTankInstance(TankFactory.MARK_1_TANK);
                 if (chooseL1.isChecked()) {
                     chooseL1.toggle();
                 }
@@ -191,7 +195,7 @@ public class ChooseScreen implements Screen {
         chooseR1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tankR = new AtomicTank(Tank.DEFAULT_TANK2_START_POSITION_X, Tank.DEFAULT_TANK2_START_POSITION_Y, false);
+                tankR = tankFactory.getTankInstance(TankFactory.ATOMIC_TANK_FLIPPED);
                 if (chooseR2.isChecked()) {
                     chooseR2.toggle();
                 }
@@ -204,7 +208,7 @@ public class ChooseScreen implements Screen {
         chooseR2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tankR = new HeliosTank(Tank.DEFAULT_TANK2_START_POSITION_X, Tank.DEFAULT_TANK2_START_POSITION_Y, false);
+                tankR = tankFactory.getTankInstance(TankFactory.HELIOS_TANK_FLIPPED);
                 if (chooseR1.isChecked()) {
                     chooseR1.toggle();
                 }
@@ -217,7 +221,7 @@ public class ChooseScreen implements Screen {
         chooseR3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                tankR = new Mark1Tank(Tank.DEFAULT_TANK2_START_POSITION_X, Tank.DEFAULT_TANK2_START_POSITION_Y, false);
+                tankR = tankFactory.getTankInstance(TankFactory.MARK_1_TANK_FLIPPED);
                 if (chooseR1.isChecked()) {
                     chooseR1.toggle();
                 }

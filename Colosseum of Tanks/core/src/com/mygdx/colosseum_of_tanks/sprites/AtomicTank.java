@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class AtomicTank extends Tank {
     public AtomicTank(int position_x, int position_y, boolean flipped) {
         super(position_x, position_y, flipped);
+        this.name = "Atomic";
         this.tankImage = new Texture(Gdx.files.internal("images/tanks/atomic.png"));
         this.tankImageFlipped = new Texture(Gdx.files.internal("images/tanks/atomic-flipped.png"));
         this.tankCard = new Texture(Gdx.files.internal("images/tanks/atomic-card.png"));

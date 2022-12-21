@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Tank extends Sprite {
     public boolean flipped;
+    public Texture currentImage;
     public Texture tankImage;
     public Texture tankImageFlipped;
     public Texture tankCard;
@@ -25,29 +26,18 @@ public class Tank extends Sprite {
     protected int positionX;
     protected int positionY;
     protected ArrayList<Missile> missiles;
-    protected ArrayList<Missile> availableMissiles;
     protected int missileCount;
     protected int fuel;
     protected int power;
     protected int angle;
+    protected String name;
     protected Missile currentMissile = null;
     protected World world;
     protected Body body;
 
-    public Tank() {
-        this.health = 100;
-        this.missiles = new ArrayList<>();
-        this.availableMissiles = new ArrayList<>();
-        this.missileCount = 6;
-        this.fuel = 100;
-        this.power = 100;
-        this.angle = 45;
-    }
-
     public Tank(int positionX, int positionY, boolean flipped) {
         this.health = 100;
         this.missiles = new ArrayList<>();
-        this.availableMissiles = new ArrayList<>();
         this.missileCount = 6;
         this.fuel = 100;
         this.power = 100;
@@ -55,6 +45,9 @@ public class Tank extends Sprite {
         this.positionX = positionX;
         this.positionY = positionY;
         this.flipped = flipped;
+        for (int i = 0; i < 6; i++) {
+            missiles.add(new Grenade(0, 0, 0, !flipped));
+        }
     }
 
     public void setWorld(World world) {
@@ -68,13 +61,15 @@ public class Tank extends Sprite {
         body = world.createBody(bodyDef);
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(5 / TheGame.PPM);
+        circleShape.setRadius(7 / TheGame.PPM);
         fixtureDef.shape = circleShape;
         body.createFixture(fixtureDef);
-        setBounds(0, 0, 32 / TheGame.PPM, 32 / TheGame.PPM);
+        setBounds(0, 0, 32 * 2 / TheGame.PPM, 32 / TheGame.PPM);
         if (flipped) {
+            this.currentImage = tankImage;
             setRegion(tankImage);
         } else {
+            this.currentImage = tankImageFlipped;
             setRegion(tankImageFlipped);
         }
     }
@@ -83,34 +78,20 @@ public class Tank extends Sprite {
         return this.body;
     }
 
+    public void flip() {
+        this.flipped = !this.flipped;
+        if (this.currentImage == this.tankImage) {
+            this.currentImage = this.tankImageFlipped;
+        } else if (this.currentImage == this.tankImageFlipped) {
+            this.currentImage = this.tankImage;
+        }
+        setRegion(this.currentImage);
+    }
+
     public void update(float delta) {
         setPosition(this.body.getPosition().x - this.getWidth() / 2, this.body.getPosition().y - this.getHeight() / 4);
     }
 
-    public void set_available_missiles(ArrayList<Missile> missiles) {
-        this.availableMissiles.addAll(missiles);
-    }
-
-    public int get_available_missiles_count() {
-        return this.availableMissiles.size();
-    }
-
-    public void move_forward(int factor) {
-        // TO-DO
-    }
-
-    public void move_backward(int factor) {
-        // TO-DO
-    }
-
-    public void aim_missile() {
-        // Missile missile = this.current_missile;
-        // TO-DO
-    }
-
-    public void collectDrop(Drop drop) {
-        this.missiles.addAll(drop.get_missiles());
-    }
 
     public int getHealth() {
         return this.health;
@@ -118,10 +99,13 @@ public class Tank extends Sprite {
 
     public void decreaseHealth(int factor) {
         this.health -= factor;
+        if (this.health < 0) {
+            this.health = 0;
+        }
     }
 
-    public void increaseHealth(int factor) {
-        this.health += factor;
+    public String getName() {
+        return this.name;
     }
 
     public int[] getPosition() {
@@ -130,14 +114,21 @@ public class Tank extends Sprite {
 
     public void decreaseMissileCount() {
         this.missileCount -= 1;
+        if (this.missileCount < 0) {
+            this.missileCount = 0;
+        }
     }
 
     public int getMissileCount() {
         return this.missileCount;
     }
 
-    public ArrayList<Missile> getMissiles() {
-        return this.missiles;
+    public Missile getMissile() {
+        try {
+            return this.missiles.get(0);
+        } catch (Exception exception) {
+            return null;
+        }
     }
 
     public void decreaseFuel(int factor) {
@@ -157,6 +148,18 @@ public class Tank extends Sprite {
 
     public void resetFuel() {
         this.fuel = 100;
+    }
+
+    public void addMissile(Missile missile) {
+        this.missiles.add(0, missile);
+    }
+
+    public void popMissile() {
+        try {
+            this.missiles.remove(0);
+        } catch (Exception ignored) {
+
+        }
     }
 
     public void knockBack() {
@@ -183,17 +186,11 @@ public class Tank extends Sprite {
 
     }
 
-    public Missile getCurrentMissile() {
-        return this.currentMissile;
+    public void increaseMissileCount(int factor) {
+        this.missileCount += factor;
     }
 
-    public void setCurrentMissile(int index) {
-        this.currentMissile = availableMissiles.get(index);
+    public boolean canShoot() {
+        return this.missileCount > 0;
     }
-
-    public void setCurrentMissile(Missile missile) {
-        this.currentMissile = missile;
-    }
-
-
 }

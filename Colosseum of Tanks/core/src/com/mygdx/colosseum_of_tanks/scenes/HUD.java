@@ -3,14 +3,15 @@ package com.mygdx.colosseum_of_tanks.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
@@ -32,8 +33,13 @@ public class HUD implements Disposable {
     private final Label tankRHealthCountLabel;
     private final Label tankRFuelCountLabel;
     private final Label tankRMissileCountLabel;
+    private Image missileImage;
+    private Texture missileTexture;
+    private Label missileDamageLabel;
+    private Label missileNameLabel;
     private final Label tankLTurn;
     private final Label tankRTurn;
+    private final Texture noneTexture;
 
     public HUD(SpriteBatch batch, Tank tankL, Tank tankR) {
         Viewport viewport = new FitViewport(TheGame.WORLD_WIDTH, TheGame.WORLD_HEIGHT, new OrthographicCamera());
@@ -46,8 +52,13 @@ public class HUD implements Disposable {
         Table tankLStatsTable = new Table();
         Table tankRTable = new Table();
         Table tankRStatsTable = new Table();
+        Table missileTable = new Table();
+        Table missileStatsTable = new Table();
         Image tankLCard = new Image(new TextureRegionDrawable(tankL.tankCard));
         Image tankRCard = new Image(new TextureRegionDrawable(tankR.tankCardFlipped));
+
+        this.noneTexture = new Texture("images/missiles/none.png");
+        this.missileTexture = noneTexture;
 
         Label tankLHealthLabel = new Label("HP:", skin);
         tankLHealthCountLabel = new Label(Integer.toString(tankL.getHealth()), skin);
@@ -67,6 +78,11 @@ public class HUD implements Disposable {
         tankLTurn.setVisible(true);
         tankRTurn.setVisible(false);
 
+        missileTexture = tankL.getMissile().getTexture();
+        missileImage = new Image(new TextureRegionDrawable(missileTexture));
+        missileDamageLabel = new Label(String.format("Damage: %d", tankL.getMissile().getDamage()), skin);
+        missileNameLabel = new Label("Name: " + tankL.getMissile().getName(), skin);
+
         tankLHealthLabel.setFontScale(0.5f);
         tankLHealthCountLabel.setFontScale(0.5f);
         tankLFuelLabel.setFontScale(0.5f);
@@ -81,6 +97,15 @@ public class HUD implements Disposable {
         tankRMissileCountLabel.setFontScale(0.5f);
         tankLTurn.setFontScale(0.5f);
         tankRTurn.setFontScale(0.5f);
+        missileNameLabel.setFontScale(0.5f);
+        missileDamageLabel.setFontScale(0.5f);
+
+        missileStatsTable.add(missileNameLabel).align(Align.left);
+        missileStatsTable.row();
+        missileStatsTable.add(missileDamageLabel).padTop(5).align(Align.left);
+
+        missileTable.add(missileImage).width(40).height(40);
+        missileTable.add(missileStatsTable).padLeft(10);
 
         tankLStatsTable.add(tankLHealthLabel);
         tankLStatsTable.add(tankLHealthCountLabel).padLeft(5);
@@ -116,6 +141,8 @@ public class HUD implements Disposable {
         tankRTable.top().padRight(10).padLeft(100);
         parentTable.add(tankLTable);
         parentTable.add(tankRTable);
+        parentTable.row();
+        parentTable.add(missileTable).padTop(110);
         this.stage.addActor(parentTable);
     }
 
@@ -171,9 +198,33 @@ public class HUD implements Disposable {
         if (turn) {
             this.tankLTurn.setVisible(true);
             this.tankRTurn.setVisible(false);
+            if (tankL.getMissileCount() != 0) {
+                this.missileImage.setDrawable(new SpriteDrawable(new Sprite(tankL.getMissile().getTexture())));
+                this.missileImage.setHeight(40);
+                this.missileDamageLabel.setText(String.format("Damage: %d", tankL.getMissile().getDamage()));
+                this.missileNameLabel.setText("Name: " + tankL.getMissile().getName());
+            } else {
+                Gdx.app.log("HUD", "hello");
+                this.missileImage.setDrawable(new SpriteDrawable(new Sprite(noneTexture)));
+                this.missileImage.setHeight(30);
+                this.missileDamageLabel.setText("Damage: 0");
+                this.missileNameLabel.setText("Name: No missile");
+            }
         } else {
             this.tankLTurn.setVisible(false);
             this.tankRTurn.setVisible(true);
+            if (tankR.getMissileCount() != 0) {
+                this.missileImage.setDrawable(new SpriteDrawable(new Sprite(tankR.getMissile().getTexture())));
+                this.missileImage.setHeight(40);
+                this.missileDamageLabel.setText(String.format("Damage: %d", tankR.getMissile().getDamage()));
+                this.missileNameLabel.setText("Name: " + tankR.getMissile().getName());
+            } else {
+                Gdx.app.log("HUD", "hello");
+                this.missileImage.setDrawable(new SpriteDrawable(new Sprite(noneTexture)));
+                this.missileImage.setHeight(30);
+                this.missileDamageLabel.setText("Damage: 0");
+                this.missileNameLabel.setText("Name: No missile");
+            }
         }
     }
 

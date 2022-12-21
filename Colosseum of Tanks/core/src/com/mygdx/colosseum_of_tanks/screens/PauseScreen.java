@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.colosseum_of_tanks.TheGame;
 
-import java.io.FileNotFoundException;
-
 public class PauseScreen implements Screen {
     private final TheGame game;
     private PlayScreen gameScreen;
@@ -124,6 +122,19 @@ public class PauseScreen implements Screen {
         saveButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (TheGame.slot1 == null || TheGame.slot2 == null || TheGame.slot3 == null) {
+                    if (TheGame.slot1 == null) {
+                        TheGame.slot1 = gameScreen;
+                    }
+                    else if (TheGame.slot2 == null) {
+                        TheGame.slot2 = gameScreen;
+                    }
+                    else {
+                        TheGame.slot3 = gameScreen;
+                    }
+                } else {
+                    TheGame.slot1 = gameScreen;
+                }
                 dispose();
                 game.setScreen(new StartScreen(game, TheGame.SAVE_GAME));
             }
@@ -168,7 +179,6 @@ public class PauseScreen implements Screen {
         stage.dispose();
         skin.dispose();
         batch.dispose();
-
         background1.dispose();
         background2.dispose();
     }
