@@ -63,6 +63,10 @@ public class PauseScreen implements Screen {
         soundTable.add(musicButton);
         soundTable.add(soundButton).padLeft(10);
 
+        if (game.musicHandler.getStatus()) {
+            this.musicButton.toggle();
+        }
+
         table.setPosition(0, 0);
         table.setFillParent(true);
         table.center();
@@ -78,6 +82,8 @@ public class PauseScreen implements Screen {
 
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
+
+        game.musicHandler.handleMusic(game.music);
     }
 
     public PauseScreen(PlayScreen gameScreen) {
@@ -125,11 +131,9 @@ public class PauseScreen implements Screen {
                 if (TheGame.slot1 == null || TheGame.slot2 == null || TheGame.slot3 == null) {
                     if (TheGame.slot1 == null) {
                         TheGame.slot1 = gameScreen;
-                    }
-                    else if (TheGame.slot2 == null) {
+                    } else if (TheGame.slot2 == null) {
                         TheGame.slot2 = gameScreen;
-                    }
-                    else {
+                    } else {
                         TheGame.slot3 = gameScreen;
                     }
                 } else {
@@ -145,6 +149,13 @@ public class PauseScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
                 game.setScreen(new StartScreen(game, TheGame.NEW_GAME));
+            }
+        });
+        musicButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.musicHandler.switchStatus();
+                game.musicHandler.handleMusic(game.music);
             }
         });
     }

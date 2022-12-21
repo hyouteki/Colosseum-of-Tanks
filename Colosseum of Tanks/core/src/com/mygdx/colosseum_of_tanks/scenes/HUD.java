@@ -33,6 +33,7 @@ public class HUD implements Disposable {
     private final Label tankRHealthCountLabel;
     private final Label tankRFuelCountLabel;
     private final Label tankRMissileCountLabel;
+    private final Label angleLabel;
     private Image missileImage;
     private Texture missileTexture;
     private Label missileDamageLabel;
@@ -40,6 +41,8 @@ public class HUD implements Disposable {
     private final Label tankLTurn;
     private final Label tankRTurn;
     private final Texture noneTexture;
+
+    private int angle = 0;
 
     public HUD(SpriteBatch batch, Tank tankL, Tank tankR) {
         Viewport viewport = new FitViewport(TheGame.WORLD_WIDTH, TheGame.WORLD_HEIGHT, new OrthographicCamera());
@@ -72,6 +75,7 @@ public class HUD implements Disposable {
         tankRFuelCountLabel = new Label(Integer.toString(tankR.getFuel()), skin);
         Label tankRMissileLabel = new Label("MP:", skin);
         tankRMissileCountLabel = new Label("00" + tankR.getMissileCount(), skin);
+        angleLabel = new Label(String.format("Angle(deg): %02d", angle) + tankR.getMissileCount(), skin);
         tankLTurn = new Label("TURN", skin);
         tankRTurn = new Label("TURN", skin);
 
@@ -99,6 +103,7 @@ public class HUD implements Disposable {
         tankRTurn.setFontScale(0.5f);
         missileNameLabel.setFontScale(0.5f);
         missileDamageLabel.setFontScale(0.5f);
+        angleLabel.setFontScale(0.5f);
 
         missileStatsTable.add(missileNameLabel).align(Align.left);
         missileStatsTable.row();
@@ -143,6 +148,7 @@ public class HUD implements Disposable {
         parentTable.add(tankRTable);
         parentTable.row();
         parentTable.add(missileTable).padTop(110);
+        parentTable.add(angleLabel).padLeft(60).padTop(110);
         this.stage.addActor(parentTable);
     }
 
@@ -152,7 +158,8 @@ public class HUD implements Disposable {
         skin.dispose();
     }
 
-    public void update(boolean turn) {
+    public void update(boolean turn, int angle) {
+        this.angleLabel.setText(String.format("Angle(deg): %02d", angle));
         if (this.tankL.getHealth() == 0) {
             this.tankLHealthCountLabel.setText("000");
             this.tankLHealthCountLabel.setColor(Color.RED);

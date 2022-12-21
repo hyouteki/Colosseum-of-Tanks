@@ -55,6 +55,8 @@ public class PlayScreen implements Screen, Serializable {
     private boolean makeDrop = false;
     private boolean takenDrop = false;
 
+    private int angle = 0;
+
     public PlayScreen(TheGame game) {
         this.game = game;
 
@@ -122,7 +124,7 @@ public class PlayScreen implements Screen, Serializable {
         this.tankL.draw(this.game.batch);
         this.tankR.draw(this.game.batch);
 
-        if (shoot) {
+        if (shoot && this.missile.getPositionY() >= Missile.GROUND_LEVEL) {
             this.missile.draw(this.game.batch);
         }
 
@@ -195,7 +197,7 @@ public class PlayScreen implements Screen, Serializable {
                 if (localTank.canShoot()) {
                     missile = localTank.getMissile();
                     missile.setMotionPosition(localTank.getBody().getPosition().x, localTank.getBody().getPosition().y);
-                    missile.setAngle(0);
+                    missile.setAngle(this.angle);
                     missile.setFlipped(!localTank.flipped);
                     this.shoot = true;
                     localTank.decreaseMissileCount();
@@ -203,6 +205,24 @@ public class PlayScreen implements Screen, Serializable {
                 } else {
                     switchTurn();
                 }
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            this.angle++;
+            if (this.angle > 90) {
+                this.angle = 90;
+            }
+            if (this.angle < 0) {
+                this.angle = 0;
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            this.angle--;
+            if (this.angle > 90) {
+                this.angle = 90;
+            }
+            if (this.angle < 0) {
+                this.angle = 0;
             }
         }
     }
@@ -230,6 +250,13 @@ public class PlayScreen implements Screen, Serializable {
                 missile = null;
                 Gdx.app.log("missileState", "missile left the screen");
             }
+            if (missile.getPositionY() < Missile.GROUND_LEVEL) {
+                this.shoot = false;
+                missile.remove();
+                switchTurn();
+                missile = null;
+                Gdx.app.log("missileState", "missile left the screen");
+            }
         } catch (Exception ignored) {
         }
         if (tankL.getBody().getPosition().x < 0 || tankL.getBody().getPosition().x > WORLD_WIDTH / TheGame.PPM) {
@@ -239,7 +266,6 @@ public class PlayScreen implements Screen, Serializable {
             this.gameOver(this.tankL);
         }
         if (tankL.getMissileCount() == 0 || tankR.getMissileCount() == 0) {
-            this.hud.update(this.turn);
             this.makeDrop();
         }
         try {
@@ -266,7 +292,7 @@ public class PlayScreen implements Screen, Serializable {
         } catch (Exception ignored) {
 
         }
-        this.hud.update(this.turn);
+        this.hud.update(this.turn, this.angle);
     }
 
     private void makeDrop() {
