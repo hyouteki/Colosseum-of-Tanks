@@ -36,7 +36,7 @@ src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/select
 - Build the project
 - Navigate to `Colosseum-of-Tanks/desktop/src/com/mygdx/colosseum_of_tanks/`
 - Run the `DesktopLauncher.java` file
-- Enjoy the game __"Gladitors"__
+- Enjoy the game __"Gladiators"__
 
 ## Courtesy
 - __Inspiration:__ Tank stars 
