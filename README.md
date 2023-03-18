@@ -19,7 +19,7 @@ src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/choose
 src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/game-screen.png" width="400" height="317"> <img 
 src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/pause-screen.png" width="400" height="317"> <img 
 src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/drop-game-screen.png" width="400" height="317"> <img 
-src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/game-screen.png" width="400" height="317"> <img 
+src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/game-over-screen.png" width="400" height="317"> <img 
 src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/select-saved-game-screen.png" width="400" height="317"> 
 
 ## Highlights
