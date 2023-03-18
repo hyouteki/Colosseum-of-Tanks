@@ -32,6 +32,7 @@ src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/select
 
 ## How to play
 - Clone the repository using `git clone https://github.com/Hyouteki/Colosseum-of-Tanks.git`.
+- Give gradlew execute permission using `chmod +x gradlew`.
 - Build the project in the root directory using `./gradlew desktop:dist`.
 - Run the game using `./gradlew desktop:run`.
 - Enjoy the game __"Gladiators"__.
