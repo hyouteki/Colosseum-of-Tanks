@@ -2,6 +2,7 @@
 
 **A desktop 2-player Tank shooter game built on `java` using `libGDX` library.**<br>
 **Mock up of the Original Tank stars game.**<br>
+
 <a href="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/LICENSE.md"> <img 
 src="https://img.shields.io/badge/License-MIT%20license-green"/>
 
