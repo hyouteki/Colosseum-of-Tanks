@@ -21,7 +21,8 @@ src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/game-s
 src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/pause-screen.png" width="400" height="317"> <img 
 src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/drop-game-screen.png" width="400" height="317"> <img 
 src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/game-over-screen.png" width="400" height="317"> <img 
-src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/select-saved-game-screen.png" width="400" height="317"> 
+src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/select-saved-game-screen.png" width="400" height="317"> <img 
+src="https://github.com/Hyouteki/Colosseum-of-Tanks/blob/main/screenshots/game-screen.png" width="400" height="317">
 
 ## Highlights
 🕹️ 2 Player tank fighter game aka __Colosseum of Tanks__.<br>
